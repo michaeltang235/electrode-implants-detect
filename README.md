@@ -10,7 +10,6 @@ images of electrode contacts. The general flowchart of the algorithm involes 3 s
 step 1: remove ncc <= ncc threshold, here ncc refers to normalized cross correlation
 step 2: remove overlapping detections with nms, here nms stands for non-maximum suppression
 step 3: remove isolated detections
+step 4: select contacts that agreed with the geometry of an electrode (i.e. those that are collinear and equidistant from one another)
 
-Currently, we are working on using a multi-contact template to remove false positives by incorporating the following features of electrode contacts into the algorithm,
-1) contacts detected have to form a straight line, as they can only be found on electrodes (straight needles) implanted
-2) allow rotation of templates in 3D to search for best match
+Currently, we are working on the training data set to obtain a template that is most representative on all electrode contacts available.
