@@ -7,8 +7,8 @@ For epilepsy patients, seizure freedom can be achieved by surgical removal of ep
 **Progress:**\
 We were able to identify locations of majority of electrode contacts using a reference template made by cropping 
 images of electrode contacts. The general flowchart of the algorithm involes 3 steps, 
-step 1: remove ncc <= ncc threshold, here ncc refers to normalized cross correlation
-step 2: remove overlapping detections with nms, here nms stands for non-maximum suppression
+step 1: remove ncc <= ncc threshold, here ncc refers to normalized cross correlation\n
+step 2: remove overlapping detections with nms, here nms stands for non-maximum suppression\n
 step 3: remove isolated detections
 step 4: select contacts that agreed with the geometry of an electrode (i.e. those that are collinear and equidistant from one another)
 
