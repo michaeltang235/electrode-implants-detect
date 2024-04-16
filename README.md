@@ -6,7 +6,7 @@ For epilepsy patients, seizure freedom can be achieved by surgical removal of ep
 
 **Progress:**\
 We were able to identify locations of majority of electrode contacts using a reference template made by cropping 
-images of electrode contacts. The general flowchart of the algorithm involes 3 steps, 
+images of electrode contacts. The general flowchart of the algorithm involes 4 steps, 
 step 1: remove ncc <= ncc threshold, here ncc refers to normalized cross correlation <br />
 step 2: remove overlapping detections with nms, here nms stands for non-maximum suppression <br />
 step 3: remove isolated detections <br />
