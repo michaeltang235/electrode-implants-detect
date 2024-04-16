@@ -218,6 +218,7 @@ def compute_iou(bbox_1, bbox_2):
 
 # ref:
 # https://medium.com/analytics-vidhya/non-max-suppression-nms-6623e6572536
+# https://www.python-engineer.com/posts/remove-elements-in-list-while-iterating/
 
 def nms(bbox_list, iou_thresh):
 
@@ -240,7 +241,13 @@ def nms(bbox_list, iou_thresh):
         curr_bbox = bbox_list_sorted.pop(0)
         bbox_list_new.append(curr_bbox)
 
-        for bbox in bbox_list_sorted:
+        # here, use bbox_list_sorted[:] to create an instance of a copy of
+        # the sorted list at the beginning of the for loop. Then, remove
+        # items in the sorted list based on condition. Updated sorted list
+        # is then checked at the while statement after. See ref. above for
+        # notes on ways to remove items in a for loop without messing up
+        # the iteration (how to properly remove items in a for loop)
+        for bbox in bbox_list_sorted[:]:
             curr_iou = compute_iou(curr_bbox, bbox)
             if curr_iou >= iou_thresh:
                 bbox_list_sorted.remove(bbox)

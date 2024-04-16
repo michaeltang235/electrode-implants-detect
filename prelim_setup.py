@@ -197,7 +197,7 @@ def sort_elect(elect_df):
         # check if alph. compo. agree and if number of curr. ele. is smaller than 
         # the next one, if so, append current row to cur_ele_list, otherwise, 
         # create new list and assign info. of electrode to it
-        if alph_compo == alph_compo1 and num_compo < num_compo1:
+        if alph_compo == alph_compo1 and int(num_compo) < int(num_compo1):
             cur_ele_list.append(elect_cleaned_df.iloc[i+1, 1:].tolist())
         else:
             # if any compo. doesn't match, it means a new type of electrode is found
