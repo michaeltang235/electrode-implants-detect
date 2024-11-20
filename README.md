@@ -9,7 +9,7 @@ We were able to identify locations of majority of electrode contacts using a ref
 images of electrode contacts. The general flowchart of the algorithm involes 4 steps, <br/>
 
 step 1: manually create reference template, then aligned all images of electrode contacts in the dataset with reference template to create average 3d template (w_1) <br />
-step 2: translate w_1 across anatomical image in x, y, and z directions to obtain a 3d array of normalized cross correlation (ncc).  -> nms -> remove isolated detections <br />
+step 2: translate w_1 across anatomical image in x, y, and z directions to obtain a 3d array of normalized cross correlation (ncc). <br />
 step 2_1: remove tranlations with ncc <= ncc threshold (only those voxels of high similarity to template would have high enough ncc value) <br />
 step 2_2: remove overlapping detections with non-maximum suppression  <br />
 step 2_3: remove isolated detections <br />
