@@ -146,7 +146,44 @@ n_fp = count_entries(comb_not_found)   # num. of false positives
 # END Part (III): Compute metrics for the report
 # --------------------------------------------------------------------------
 
-# Part (IV): Generate report
+# Part (IV): Separate elect. in dataset into horizontally and vertically oriented
+# and count how many of them were detected by algo.
+
+#
+# define vertical spacing allowed for an elect. to be considered as
+# horizontally oriented in anatomical space
+vert_spac = 7   # in anat space
+elect_ijk_anat_sorted_hori = []   # initialize lists
+elect_ijk_anat_sorted_vert = []
+
+for item in elect_ijk_anat_sorted:
+    first_contact = item[0]
+    last_contact = item[-1]
+    dist = np.array(last_contact) - np.array(first_contact)
+    vert_dist = np.absolute(dist[-1])
+    if vert_dist <= vert_spac:
+        elect_ijk_anat_sorted_hori.append(item)
+    else:
+        elect_ijk_anat_sorted_vert.append(item)
+
+# sort electrodes in comb_matched into the following
+comb_found_hori = []   # comb with contacts found in hori. elect dataset (D)
+comb_found_vert = []   # comb with contacts found in vert. elect dataset (E)
+
+for comb in comb_matched:
+    #
+    counter, ind_req = find_group(comb, elect_ijk_anat_sorted_hori)
+    if counter == 1:
+        comb_found_hori.append(comb)
+    counter, ind_req = find_group(comb, elect_ijk_anat_sorted_vert)
+    if counter == 1:
+        comb_found_vert.append(comb)
+
+# END Part (IV): Separate elect. in dataset into horizontally and vertically oriented
+# # and count how many of them were detected by algo.
+# --------------------------------------------------------------------------
+
+# Part (V): Generate report
 
 # assemble path at which report is saved
 report_output_dir = os.path.dirname(comb_matched_file_path)
@@ -167,7 +204,66 @@ print('no. of true positives = ', n_tp, '---(B)', file=f)
 print('no. of false positives = ', n_fp, '---(C)', file=f)
 print('B/A = ', np.around(n_tp/len(elect_ijk_anat), 3), file=f)
 print('C/A = ', np.around(n_fp/len(elect_ijk_anat), 3), file=f)
+print('-------', file=f)
+print('-------', file=f)
+print('no. of horizontal elect. in dataset = ', len(elect_ijk_anat_sorted_hori), '---(D)', file=f)
+print('no. of vertical elect. in dataset = ', len(elect_ijk_anat_sorted_vert), '---(E)', file=f)
+print('no. of hori. elect. with contacts detected = ', len(comb_found_hori), '---(F)', file=f)
+print('no. of vert. elect. with contacts detected = ', len(comb_found_vert), '---(G)', file=f)
+if len(elect_ijk_anat_sorted_hori) == 0:
+    print('F/D = ', 'NA', file=f)
+else:
+    print('F/D = ', np.around(len(comb_found_hori) / len(elect_ijk_anat_sorted_hori), 3), file=f)
+if len(elect_ijk_anat_sorted_vert) == 0:
+    print('G/E = ', 'NA', file=f)
+else:
+    print('G/E = ', np.around(len(comb_found_vert) / len(elect_ijk_anat_sorted_vert), 3), file=f)
+#print('F/D = ', np.around(len(comb_found_hori)/len(elect_ijk_anat_sorted_hori), 3), file=f)
+#print('G/E = ', np.around(len(comb_found_vert)/len(elect_ijk_anat_sorted_vert), 3), file=f)
 f.close()
 
 # END Part (IV): Generate report
 # --------------------------------------------------------------------------
+
+#
+# # separate elect. in dataset into horizontally and vertically oriented
+# elect_file_path = '/work/levan_lab/mtang/elect_locate/sub27/27_HT_Koordinaten.xlsx'
+# elect_coord_anat_file_path = '/work/levan_lab/mtang/elect_locate/sub27/fsl_resample/elect_contacts_coord_anat.txt'
+# comb_matched_file_path = '/work/levan_lab/mtang/elect_locate/sub27/data_py/jul15_2024/exp_a_1/comb_matched.npy'
+#
+# #
+# vert_spac = 7   # in anat space
+# elect_ijk_anat_sorted_hori = []
+# elect_ijk_anat_sorted_vert = []
+#
+# for item in elect_ijk_anat_sorted:
+#     first_contact = item[0]
+#     last_contact = item[-1]
+#     dist = np.array(last_contact) - np.array(first_contact)
+#     vert_dist = np.absolute(dist[-1])
+#     if vert_dist <= vert_spac:
+#         elect_ijk_anat_sorted_hori.append(item)
+#     else:
+#         elect_ijk_anat_sorted_vert.append(item)
+#
+# # sort electrodes in comb_matched into the following
+# comb_found_hori = []   # comb with contacts found in hori. elect dataset (D)
+# comb_found_vert = []   # comb with contacts found in vert. elect dataset (E)
+#
+# for comb in comb_matched:
+#     #
+#     counter, ind_req = find_group(comb, elect_ijk_anat_sorted_hori)
+#     if counter == 1:
+#         comb_found_hori.append(comb)
+#     counter, ind_req = find_group(comb, elect_ijk_anat_sorted_vert)
+#     if counter == 1:
+#         comb_found_vert.append(comb)
+#
+# print('no. of horizontal elect. in dataset = ', len(elect_ijk_anat_sorted_hori), file=f)
+# print('no. of vertical elect. in dataset = ', len(elect_ijk_anat_sorted_vert), file=f)
+# print('no. of hori. elect. with contacts detected = ', len(comb_found_hori), file=f)
+# print('no. of vert. elect. with contacts detected = ', len(comb_found_vert), file=f)
+#
+#
+# np.divide(len(comb_found_vert), len(elect_ijk_anat_sorted_vert), ...
+# out=np.zeros_like(len(comb_found_vert)), where=len(elect_ijk_anat_sorted_vert)!=0)
