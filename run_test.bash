@@ -1,6 +1,6 @@
 # enter experiment numbers and series required
 exp_num=("1" "2" "3" "4")
-series_label="a"
+series_label="b"
 
 # create and assemble exp_list
 exp_list=()
@@ -12,14 +12,14 @@ done
 printf "exp_list = ${exp_list[*]}\n"
 
 # assemble path of directory required for each experiment, 
-# directly call test script (test.py) with dir' path created 
+# directly call test script (run_test.py) with dir' path created 
 # passed as argument and save stdout to file specified for 
 # that experiment 
 #
 for exp in ${exp_list[@]}; do
-	directname="$(dirname $PWD)/data_py/ec_detect_script_5_1/$exp"
+	directname="$(dirname $PWD)/data_py/jul15_2024/$exp"
 	printf "directname = $directname\n"
-	python run_test.py ${directname} > "./exp_stdout/${exp}.out" 
+	python run_test_5_1.py ${directname} > "./exp_stdout/jul15_2024/${exp}.out" 
 done	 
 
 #ref:
