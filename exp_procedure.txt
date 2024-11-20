@@ -1,0 +1,41 @@
+step 1: get w_1:
+
+-get w_1 of sub 27 by copying it to required dest. dir.
+
+-required files: ec_detect_script_5_1_2.py, ec_detect_5.py
+
+-get w_1 of current subject in different experiments by manually 
+selecting ref_img (the elect. contact from excel sheet) in 
+'ec_detect_script_5_1_2.py'
+
+-use command line python ec_detect_script_5_1_2.py 
+
+step 2: compute ncc using w_1 in diff. exp.
+
+-required files:
+--step_2_ncc.bash, step_2_ncc.py, step_2.slurm
+
+-define exp. label in 'step_2_ncc.bash'
+-specify path of dir. in step_2_ncc.slurm
+-run step_2_ncc.slurm
+
+step 3: run matching algo. 
+
+-required files:
+--parameter.py ec_detect_#.py, run_test_#.py, run_test.bash, run_test.slurm
+
+-check parameter.py to confirm all spec. are correct
+-edit run_test.bash to specify version of run_test_#.py required
+-edit exp. label in 'run_test.bash'
+-specify path of curr. sub. in run_test.slurm
+-run run_test.slurm
+
+step 4: get statistics
+
+-required files: 
+--stats_report.bash, stats_report.py
+
+-specify exp. label in 'stats_report.bash'
+-specify paths of comb_matched in 'stats_report.bash'
+-run the following
+-bash stats_report.bash
