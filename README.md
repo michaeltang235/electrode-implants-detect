@@ -12,4 +12,6 @@ step 2: remove overlapping detections with nms, here nms stands for non-maximum 
 step 3: remove isolated detections <br />
 step 4: select contacts that agreed with the geometry of an electrode (i.e. those that are collinear and equidistant from one another) <br />
 
-Currently, we are working on the training data set to obtain a template that is most representative on all electrode contacts available. <br />
+Currently, we are working on thw following: <br />
+-obtaining a template in the training dataset that is most representative on all electrode contacts available <br />
+-adding a feature of intensity (min., max., avg.) to filter out false detection candidates <br />
